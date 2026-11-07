@@ -1,0 +1,11 @@
+// ReThrottleStop 的 niri 窗口规则
+// 加入 ~/.config/niri/config.kdl 后执行 niri msg action load-config-file
+//
+// 说明：只设 open-floating，不锁尺寸 —— 让窗口可自由拖动缩放。
+// 若写 default-column-width { fixed N; } 会导致窗口无法调整大小。
+
+window-rule {
+    match app-id=r#"^org\.rethrottlestop\.app$"#
+    open-floating true
+    default-floating-position x=80 y=60 relative-to="top-left"
+}

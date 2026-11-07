@@ -1,0 +1,2 @@
+# 允许 wheel 组读取 MSR（监控用，写操作仍由守护进程独占）
+KERNEL=="msr[0-9]*", SUBSYSTEM=="msr", MODE="0640", GROUP="wheel"

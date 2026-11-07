@@ -1,0 +1,48 @@
+# Maintainer: FoxHMM <foxhmm@local>
+pkgname=rethrottlestop
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="ThrottleStop 的 Linux 移植版：Intel FIVR 电压调节与频率监控（GTK4 + MSR 守护进程）"
+arch=('x86_64')
+url="https://github.com/FoxHMM/rethrottlestop"
+license=('MIT')
+depends=('gtk4' 'glib2' 'systemd')
+makedepends=('gcc' 'pkgconf')
+options=('!strip')
+# 源码取自 GitHub 的 tag 归档。
+# 这样 PKGBUILD 自身不参与源码包内容，避免 checksum 循环依赖。
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+    cd "$pkgname-$pkgver"
+    make
+}
+
+package() {
+    cd "$pkgname-$pkgver"
+
+    # 主程序
+    install -Dm755 build/rethrottlestop "$pkgdir/usr/bin/rethrottlestop"
+
+    # 守护进程 systemd 单元（系统级，带 CAP_SYS_RAWIO）
+    install -Dm644 packaging/rethrottlestop-daemon.service \
+        "$pkgdir/usr/lib/systemd/system/rethrottlestop-daemon.service"
+
+    # udev 规则：允许 wheel 组读取 MSR（监控用）
+    install -Dm644 packaging/99-rethrottlestop.rules \
+        "$pkgdir/usr/lib/udev/rules.d/99-rethrottlestop.rules"
+
+    # 桌面入口
+    install -Dm644 packaging/rethrottlestop.desktop \
+        "$pkgdir/usr/share/applications/rethrottlestop.desktop"
+
+    # 文档
+    install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+    install -Dm644 TODO.md "$pkgdir/usr/share/doc/$pkgname/TODO.md"
+
+    # 许可证
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
+
+# vim:set ts=4 sw=4 et:

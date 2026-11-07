@@ -1,0 +1,11 @@
+post_install() {
+    echo ">>> 启用 MSR 守护进程："
+    echo "    systemctl enable --now rethrottlestop-daemon.service"
+    echo ""
+    echo ">>> 加载 msr 内核模块（如未加载）："
+    echo "    modprobe msr"
+}
+
+post_upgrade() {
+    systemctl try-restart rethrottlestop-daemon.service 2>/dev/null || true
+}

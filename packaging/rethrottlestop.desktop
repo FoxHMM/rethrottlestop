@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=ReThrottleStop
+Name[zh_CN]=ReThrottleStop 电压调节
+GenericName=CPU Voltage Tuner
+GenericName[zh_CN]=CPU 电压调节
+Comment=Intel FIVR voltage and frequency control (ThrottleStop port)
+Comment[zh_CN]=Intel FIVR 电压与频率调节（ThrottleStop 移植）
+Exec=rethrottlestop
+Icon=rethrottlestop
+Terminal=false
+Categories=System;Monitor;Utility;
+Keywords=cpu;voltage;undervolt;frequency;msr;throttle;
+StartupWMClass=rethrottlestop

@@ -1,0 +1,24 @@
+[Unit]
+Description=ReThrottleStop MSR daemon (owns FIVR mailbox)
+Documentation=https://github.com/FoxHMM/rethrottlestop
+After=multi-user.target
+After=suspend.target hibernate.target hybrid-sleep.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rethrottlestop --daemon
+ExecReload=/bin/kill -USR1 $MAINPID
+Restart=always
+RestartSec=3
+
+AmbientCapabilities=CAP_SYS_RAWIO
+CapabilityBoundingSet=CAP_SYS_RAWIO
+NoNewPrivileges=yes
+
+RuntimeDirectory=rethrottlestop
+RuntimeDirectoryMode=0775
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=suspend.target hibernate.target hybrid-sleep.target

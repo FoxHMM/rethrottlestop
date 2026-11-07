@@ -1,0 +1,17 @@
+pkgbase = rethrottlestop
+	pkgdesc = ThrottleStop 的 Linux 移植版：Intel FIVR 电压调节与频率监控（GTK4 + MSR 守护进程）
+	pkgver = 1.0.0
+	pkgrel = 1
+	url = https://github.com/FoxHMM/rethrottlestop
+	arch = x86_64
+	license = MIT
+	makedepends = gcc
+	makedepends = pkgconf
+	depends = gtk4
+	depends = glib2
+	depends = systemd
+	options = !strip
+	source = rethrottlestop-1.0.0.tar.gz::https://github.com/FoxHMM/rethrottlestop/archive/refs/tags/v1.0.0.tar.gz
+	sha256sums = SKIP
+
+pkgname = rethrottlestop
